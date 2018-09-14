@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Project Calculator</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+
+<script th:src="@{/main.js}"></script>
+<head>
+<body ng-app="ProjectCalculator" ng-controller="TaskController">
+	<h3>Project</h3>	
+	<form  ng-submit="submitTask()">
+		<table border="0">
+			<tr>
+				<td>Task Name</td>
+				<td><input type="text" ng-model="taskForm.taskDescription" required />		
+							
+				</td>
+			</tr>
+			<tr>
+				<td>Task Duration</td>
+				<td><input type="number" min="1" step="1" ng-model="taskForm.taskDuration" required /></td>
+			</tr>
+			<tr>
+				<td>Task Dependencies</td>
+				<td><select multiple ng-model="taskForm.taskDepends">
+						<option ng-selected="task.selected" ng-repeat="task in taskList"
+							value="{{task.id}}">{{task.description}}</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Create"
+					class="blue-button" /></td>
+			</tr>
+		</table>
+	</form>
+	<br />
+	<form ng-submit="calculateProject()">
+	<br />
+	
+	<table border="0">
+			<tr>
+				<td>Project Start Date: </td>
+				<td><input type="date" ng-model="projectForm.projectStartDate" /></td>
+			</tr>
+	</table>
+	
+	<table border="1">
+		<tr>
+			<th>Task Description</th>
+			<th>Task Duration</th>
+			<th>Task Start</th>
+			<th>Task End</th>
+			<th>Dependencies</th>			
+		</tr>
+		<!-- $scope.tasks -->
+		<tr ng-repeat="task in taskList">
+			<td>{{ task.description }}</td>
+			<td>{{ task.duration }}</td>
+			<td>{{ task.startDate }}</td>
+			<td>{{ task.endDate }}</td>
+			<td>{{ task.depends }}</td>			
+		</tr>
+	</table>
+		<br>
+		<input type="submit" value="Calculate" class="blue-button" />
+	</form>
+</body>
+</html>
